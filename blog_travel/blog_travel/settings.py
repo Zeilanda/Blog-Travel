@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blogs',
-    'blog_travel_auth',
+    'register',
 ]
 
 MIDDLEWARE = [
@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -135,10 +135,9 @@ INTERNAL_IPS = [
     'localhost'
 ]
 
-# custom user model
-AUTH_USER_MODEL = "blog_travel_auth.BlogTravelUser"
 
+# custom user model
+AUTH_USER_MODEL = 'register.BlogUser'
 # redirects
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/blog_travel_auth/login/'

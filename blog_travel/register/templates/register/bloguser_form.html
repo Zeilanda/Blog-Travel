@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_title %}Create an Account{% endblock %}
+{#{% load crispy_forms_tags %}#}
+
+{% block main_container %}
+    <form method="POST" class="form-group">
+	{% csrf_token %}
+	{{ form }}
+	<button type="submit" class="btn btn-success">Register</button>
+    </form>
+{% endblock %}

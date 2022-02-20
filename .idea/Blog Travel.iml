@@ -17,7 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/blog_travel" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (Blog-Travel)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">
@@ -25,7 +25,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/blog_travel/blogs/templates" />
-        <option value="$MODULE_DIR$/blog_travel/blog_travel_auth/tenplates" />
+        <option value="$MODULE_DIR$/blog_travel/register/templates" />
       </list>
     </option>
   </component>
