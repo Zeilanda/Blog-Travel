@@ -141,3 +141,4 @@ AUTH_USER_MODEL = 'register.BlogUser'
 # redirects
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/register/login/'
