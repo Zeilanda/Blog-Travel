@@ -5,44 +5,70 @@
     Travel blog
 {% endblock %}
 
-{% block main_container %}
-    <div class="container">
-        <h2>Блоги о различных путешествиях</h2>
-    </div>
-    {#        <a href="{% url 'blogs: post_list'%}"#}
-    {% if user.is_authenticated %}
-        <a href="{% url 'register:logout' %}">Выйти ({{ user.username }})</a>
-        <div>
-            <a href="{% url 'blogs:post_create' %}">New post</a>
-        </div>
-    {% else %}
-        <a href="{% url 'register:login' %}">Войти</a>
-    {% endif %}
-    <p>
-        {% if not user.is_authenticated %}
-            <a href="{% url 'register:user_create' %}">Регистрация</a>
-        {% endif %}
-    </p>
 
+{% block main_container %}
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog_travel/style.blog_travel' %}">
     <div class="posts_list">
-        <div class="container py-4">
+        <div class="container py-2">
             {% for post in post_list %}
                 <div class="p-3 mb-4 bg-light rounded-3">
-                    <div class="container-fluid py-5">
-                        <h1 class="display-5 fw-bold">{{ post.title }}</h1>
-                        <p class="col-md-8 fs-4">{{ post.body }}</p>
-                        <button class="btn btn-primary btn-lg" type="button">Комментарии</button>
+                    <div class="container-md py-2" style="padding-top: 5px; margin-left: 20px;">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">{{ post.author }}</li>
+                            <li class="list-inline-item">{{ post.pub_date }}</li>
+                        </ul>
+
+                        <a href="{% url 'blogs:post_detail' post.pk %}" class="display-6 fw-bold" style="color:
+                            black; text-decoration: none">
+                            {{ post.title }}
+                        </a>
+                        <p></p>
+
+                        <p class="lh-base">{{ post.body | truncatewords:50 }}</p>
+
+                        <a class="btn btn-outline-secondary" href="{% url 'blogs:post_detail' post.pk %}"
+                           role="button">Читать
+                            далее</a>
                     </div>
                 </div>
             {% endfor %}
-        </div>
-        <ul>
-            {% for post in post_list %}
-                <li>
-                    {{ post }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+            <!-- Pagination -->
+            <div class="row">
+                <nav class="col-lg-6 offset-lg-3 mt-4 d-flex justify-content-center">
+                    <ul class="pagination">
 
+                        {#                    {% if page_obj.has_previous %}#}
+                        {#                        <li class="page-item">#}
+                        {#                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>#}
+                        {#                        </li>#}
+                        {#                    {% else %}#}
+                        {#                        <li class="page-item disabled">#}
+                        {#                            <a class="page-link" href="#">Previous</a>#}
+                        {#                        </li>#}
+                        {#                    {% endif %}#}
+
+                        {% for i in page_obj.paginator.page_range %}
+                            <li class=" page-item {% if page_obj.number == i %}active{% endif %}">
+                                <a class="page-link" style="color: black" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {#                    {% if page_obj.has_next %}#}
+                        {#                        <li class="page-item">#}
+                        {#                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>#}
+                        {#                        </li>#}
+                        {#                    {% else %}#}
+                        {#                        <li class="page-item disabled">#}
+                        {#                            <a class="page-link" href="#">Next</a>#}
+                        {#                        </li>#}
+                        {#                    {% endif %}#}
+
+                    </ul>
+                </nav>
+            </div>
+            <!-- /Pagination -->
+        </div>
+    </div>
 {% endblock %}

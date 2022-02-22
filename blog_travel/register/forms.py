@@ -12,8 +12,8 @@ class RegisterForm(UserCreationForm):
         model = BlogUser
         fields = ("username", "email", "password1", "password2")
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     for field_name, field_obj in self.fields.items():
-    #         field_obj.help_text = ''
-    #         print(field_name, field_obj.help_text)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field_obj in self.fields.items():
+            field_obj.help_text = '\n'
+            print(field_name, field_obj.help_text)
