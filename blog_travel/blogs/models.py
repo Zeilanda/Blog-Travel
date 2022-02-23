@@ -22,6 +22,9 @@ class Post(models.Model):
                                on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)
 
+    class Meta:
+        ordering = ['-pub_date']
+
     def __str__(self):
         return f'{self.title} <{self.body}>'
 
