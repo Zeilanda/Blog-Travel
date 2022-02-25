@@ -12,45 +12,18 @@ from blogs.models import Post
 #
 #
 from blogs.forms import PostCreateForm
+from register.models import BlogUser
 
 
 class HomeView(ListView):
     template_name = 'blogs/index.html'
     queryset = Post.objects.all()
     paginate_by = 5
-# def index(request):
-#     posts = Post.objects.all()
-#     context = {'post_list': reversed(posts)}
-#     return render(request, 'blogs/index.html', context=context)
-
-#
-# class PostListView(ListView):
-#     model = Post
 
 
 class PostDetailView(DetailView):
     page_title = 'Post Detail'
     model = Post
-
-    # def get_object(self, queryset=None):
-    #     return get_object_or_404(Post, slug__iexact=self.kwargs['slug'])
-# def get_name(request):
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = NameForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/thanks/')
-#
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = NameForm()
-#
-#     return render(request, 'blogs/name.html', {'form': form})
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

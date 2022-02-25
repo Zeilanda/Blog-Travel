@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+
+{% endblock %}
+
+
+{% block main_container %}
+    {% load static %}
+
+    <div class="row my-3 p-3">
+        <h1>This is the profile page for {{user.username}}</h1>
+    </div>
+
+
+{% endblock %}

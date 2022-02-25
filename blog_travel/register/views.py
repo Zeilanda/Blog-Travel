@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
-from .models import BlogUser
+from .models import BlogUser, Profile
 from .forms import RegisterForm, LoginForm
 
 
@@ -39,3 +40,11 @@ def log_in(request):
     else:
         form = LoginForm()
     return render(request, 'login/login.html', {'form': form})
+
+
+@login_required
+def profile(request, username):
+    user = get_object_or_404(BlogUser, username=username)
+    profile = get_object_or_404(Profile, user=user)
+    return render(request, 'profile/profile.html', {'profile': profile, 'user': user})
+
