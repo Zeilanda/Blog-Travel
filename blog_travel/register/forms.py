@@ -10,10 +10,9 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = BlogUser
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", 'email')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field_obj in self.fields.items():
-            field_obj.help_text = '\n'
-            print(field_name, field_obj.help_text)
+
+class LoginForm(forms.Form):
+    email = forms.CharField()
+    password = forms.CharField()

@@ -10,21 +10,21 @@
     {% load static %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'blog_travel/style.blog_travel' %}">
+    <div class="container py-2">
+        <div class="p-3 mb-4 bg-light rounded-3">
+            <div class="container-md py-2" style="padding-top: 5px; margin-left: 20px;">
+                <ul class="list-inline">
+                    <li class="list-inline-item">{{ post.author }}</li>
+                    <li class="list-inline-item">{{ post.pub_date }}</li>
+                </ul>
 
-    <div class="p-3 mb-4 bg-light rounded-3">
-        <div class="container-md py-2" style="padding-top: 5px; margin-left: 20px;">
-            <ul class="list-inline">
-                <li class="list-inline-item">{{ post.author }}</li>
-                <li class="list-inline-item">{{ post.pub_date }}</li>
-            </ul>
+                <p class="display-6 fw-bold">{{ post.title }}</p>
 
-            <p class="display-6 fw-bold">{{ post.title }}</p>
-
-            <p class="col-md-8 fs-5">{{ post.body }}</p>
+                <p class="lh-base">{{ post.body }}</p>
 
 
+            </div>
         </div>
-    </div>
 
 
 

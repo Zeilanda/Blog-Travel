@@ -12,10 +12,10 @@ app_name = 'register'
 
 urlpatterns = [
     path('',
-         register.BlogUserCreateView.as_view(),
+         register.signup,
          name='user_create'),
     path('login/',
-         LoginView.as_view(),
+         register.log_in,
          name='login'),
     path('logout/',
          LogoutView.as_view(),
