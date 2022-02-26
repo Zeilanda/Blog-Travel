@@ -17,7 +17,8 @@ urlpatterns = [
          name='logout'),
     path('profile/<username>/',
          register.profile,
-         name='profile')
+         name='profile'),
+    path('edit-profile/', register.edit_profile, name='edit_profile')
     # path('password_reset/', PasswordResetView.as_view(
     #     template_name='register/password_reset.html',
     #     email_template_name='users/password_reset_email.html',

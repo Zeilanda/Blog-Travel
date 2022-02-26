@@ -2,12 +2,12 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+# from django.views.generic import CreateView
 from .models import BlogUser, Profile
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, EditProfileForm
 
 
 def signup(request):
@@ -48,3 +48,19 @@ def profile(request, username):
     profile = get_object_or_404(Profile, user=user)
     return render(request, 'profile/profile.html', {'profile': profile, 'user': user})
 
+
+# @login_required
+def edit_profile(request) -> HttpResponse:
+    if request.method == 'POST':
+        # user_form = EditUserForm(request.POST, instance=request.user)
+        profile = get_object_or_404(Profile, user=request.user)
+        profile_form = EditProfileForm(request.POST, instance=profile)
+        if profile_form.is_valid():
+            # user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='register-profile')
+    else:
+        # user_form = EditUserForm(instance=request.user)
+        profile_form = EditProfileForm()
+        return render(request, 'profile/edit_profile.html', {'profile_form': profile_form})

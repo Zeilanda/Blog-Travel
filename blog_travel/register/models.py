@@ -10,9 +10,9 @@ class BlogUser(AbstractUser):
 
 
 class Profile(models.Model):
-    bio = models.TextField(blank=True)
-    d_birth = models.DateField(blank=True, null=True)
     user = models.OneToOneField(BlogUser, on_delete=models.CASCADE)
+
+    bio = models.TextField()
 
     def __str__(self):
         return self.user.username

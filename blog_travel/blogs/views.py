@@ -65,3 +65,4 @@ class PostUpdateView(LoginRequiredMixin, CreateView):
 
     def get_queryset(self):
         return self.model.objects.filter(author=self.request.user)
+
