@@ -49,7 +49,7 @@ def profile(request, username):
     return render(request, 'profile/profile.html', {'profile': profile, 'user': user})
 
 
-# @login_required
+@login_required
 def edit_profile(request) -> HttpResponse:
     if request.method == 'POST':
         # user_form = EditUserForm(request.POST, instance=request.user)
@@ -59,7 +59,7 @@ def edit_profile(request) -> HttpResponse:
             # user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='register-profile')
+            return redirect('register:profile', request.user.username)
     else:
         # user_form = EditUserForm(instance=request.user)
         profile_form = EditProfileForm()

@@ -2,6 +2,7 @@
 from django.db import models
 
 from django.db import models
+from django.utils import timezone
 from django.utils.timezone import now
 
 from register.models import BlogUser
@@ -27,6 +28,8 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title} <{self.body}>'
+
+print(timezone.now())
 
 
 class Comment(models.Model):
