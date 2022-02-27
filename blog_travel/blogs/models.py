@@ -1,8 +1,11 @@
 # from django.contrib.auth.models import User
-from django.db import models
 
 from django.db import models
+<<<<<<< Updated upstream
 from django.utils.timezone import now
+=======
+from django.utils import timezone
+>>>>>>> Stashed changes
 
 from register.models import BlogUser
 
@@ -20,7 +23,7 @@ class Post(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(BlogUser,
                                on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag)
 
     class Meta:
         ordering = ['-pub_date']
@@ -28,6 +31,12 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} <{self.body}>'
 
+<<<<<<< Updated upstream
+=======
+
+print(timezone.now())
+
+>>>>>>> Stashed changes
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,

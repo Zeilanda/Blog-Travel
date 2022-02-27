@@ -21,7 +21,10 @@
                 <p class="display-6 fw-bold">{{ post.title }}</p>
 
                 <p class="lh-base">{{ post.body }}</p>
-
+{##}
+                {% for tag in post.tags.all %}
+                    <p class="lh-base">{{ tag }}</p>
+                {% endfor %}
 
             </div>
         </div>

@@ -29,9 +29,31 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     page_title = 'Post Create'
     model = Post
+<<<<<<< Updated upstream
     # form_class = PostCreateForm
     success_url = '/'
     fields = ('title', 'body', )
+=======
+    # fields = ('title', 'body', 'tags')
+    form_class = PostCreateForm
+    success_url = 'blogs:index'
+    #
+    # def get_form_kwargs(self):
+    #     result =  super().get_form_kwargs()
+    #     print(f"get_form_kwargs result: {result}")
+    #     tags_line = result['data'].get("tags", '')
+    #     assert isinstance(tags_line, str)
+    #     tags = tags_line.split(',')
+    #     result["data"]["tags"] = tags
+    #     return result
+
+    def get_form_class(self):
+        # print('testing tags', self.fields, self.model)
+        res = super().get_form_class()
+        # print('done')
+        return res
+
+>>>>>>> Stashed changes
 
     def get_success_url(self):
         messages.success(
@@ -41,10 +63,22 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         print('form:', form)
         form.instance.author = self.request.user
-        return super().form_valid(form)
+        result = super().form_valid(form)
+        # form.instance.tags.set([])
+        return result
 
+
+<<<<<<< Updated upstream
     def save_model(self):
         pass
+=======
+    def get_queryset(self):
+        print('get_queryset')
+        return super().get_queryset()
+        # return self.model.objects.filter(author=self.request.user)
+    # def save_model(self):
+    #     pass
+>>>>>>> Stashed changes
 
 
 class PostUpdateView(LoginRequiredMixin, CreateView):
