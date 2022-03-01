@@ -1,3 +1,5 @@
+from typing import List, Tuple
+
 import django
 from django.core.exceptions import ValidationError
 from django.db.models.fields.related_descriptors import create_forward_many_to_many_manager
@@ -18,7 +20,6 @@ class PostCreateForm(ModelForm):
         # exclude = ('author',)
     # def is_valid(self):
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         print('user_id in kwargs')
@@ -28,39 +29,20 @@ class PostCreateForm(ModelForm):
         tags: django.forms.models.ModelMultipleChoiceField = self.fields['tags']
         print(tags)
         print(dir(tags))
-        # tags.clean([1])
-        # tags.queryset = Tag.objects.all()
-        # tags.queryset = Tag.objects.all()
-        # kwargs[]["tags"]
-    #     tags_string = kwargs['tags']
-    #     print(tags_string)
-    #     for f_name, f_obj in self.fields.items():
-    #         print(f_name, f_obj)
-            # f_obj.widget.attrs['class'] = 'form-item'
-            # if f_name == 'title':
-            #     f_obj.widget = HiddenInput()
-            # f_obj.widget.attrs['user_id'] = current_user.id
-    #
-    # def clean_title(self):
-    #     value = self.cleaned_data['title']
-    #     # if not value or not value[0].isupper():
-    #     if not value[0].isupper():
-    #         raise ValidationError('title is not title')
-    #
-    #     return value
+
 
     def save(self, commit=True):
         # own logic
-        # print(self.fields['tags'])
-        print("cleaned_data:", self.cleaned_data)
-        # self.cleaned_data["tags"] = [2]
+        list_of_tags = self.cleaned_data['tags'].split(',')
+        new_tags_and_id: List[Tuple[str, int]] = []
+        for new_tag in list_of_tags:
+            data_tag: Tuple[Tag, bool] = Tag.objects.get_or_create(name=new_tag)
+            new_tags_and_id.append((data_tag[0].name, data_tag[0].id))
 
-        # self.cleaned_data["tags"] = Tag.objects.update_or_create(Tag.name)
-        res, created = Tag.objects.get_or_create(name=self.cleaned_data["tags"])
-        print(res.id)
-        # print(res)
-        # print(dir(self.fields['tags']))
-        # print('save')
+        tags_id = []
+        for tuple_of_name_id_tag in new_tags_and_id:
+            tags_id.append(tuple_of_name_id_tag[1])
+
+        self.cleaned_data['tags'] = tags_id
         result: Post = super().save(commit=True)
-        result.tags.set(res.id, self.cleaned_data["tags"])
         return result

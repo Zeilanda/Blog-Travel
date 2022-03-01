@@ -1,11 +1,10 @@
 # from django.contrib.auth.models import User
 
 from django.db import models
-<<<<<<< Updated upstream
+
 from django.utils.timezone import now
-=======
 from django.utils import timezone
->>>>>>> Stashed changes
+
 
 from register.models import BlogUser
 
@@ -31,12 +30,6 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.title} <{self.body}>'
 
-<<<<<<< Updated upstream
-=======
-
-print(timezone.now())
-
->>>>>>> Stashed changes
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,

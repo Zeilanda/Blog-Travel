@@ -6,23 +6,74 @@
 {% endblock %}
 
 {% block main_container %}
-    <div class="container-md">
-        <a href="{% url 'blogs:index' %}">На главную</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'register:logout' %}">Выйти ({{ user.username }})</a>
-            <div>
-                <div class="post-create-form">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" value="save">
-                    </form>
-                </div>
-            </div>
-            </div>
-        {% else %}
-            <a href="{% url 'register:login' %}">Войти</a>
-        {% endif %}
+    {#    <div class="container-md">#}
+    {#        {% if user.is_authenticated %}#}
+    {#            <div>#}
+    {#                <div class="post-create-form">#}
+    {#                    <form method="post">#}
+    {#                        {% csrf_token %}#}
+    {#                        {{ form.as_p }}#}
+    {#                        <input type="submit" value="save">#}
+    {#                    </form>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            </div>#}
+    {#        {% else %}#}
+    {#            <a href="{% url 'register:login' %}">Войти</a>#}
+    {#        {% endif %}#}
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <h2 class=" my-5">{% if update %}Update post{% else %}Create a post{% endif %}</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form.title.label_tag }}
+                        <input type="text" class="form-control {% if form.title.errors %}is-invalid{% endif %}"
+                               id="id_title"
+                               name="title" value='{{ form.title.value|default:"" }}'>
+                        {% if form.title.errors %}
+                            <div class="invalid-feedback">{{ form.title.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.body.label_tag }}
+                        <textarea type="text" class="form-control {% if form.body.errors %}is-invalid{% endif %}"
+                                  id="id_body"
+                                  name="body" cols="40" rows="10">{{ form.body.value|default:"" }}</textarea>
+                        {% if form.body.errors %}
+                            <div class="invalid-feedback">{{ form.body.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.tags.label_tag }}<br>
+
+                        <input type="text" class="form-control {% if form.tags.errors %}is-invalid{% endif %}"
+                               id="id_tags"
+                               name="tags" value='{{ form.tags.value|default:"" }}'>
+                        {% if form.tags.errors %}
+                            <div class="invalid-feedback">{{ form.tags.errors }}</div>
+                        {% endif %}
+                    </div>
 
 
+                    {#                        <input class="custom-select w-25" name="tags" id="id_tags" multiple>#}
+                    {#                            {% for name, value in form.tags.field.choices %}#}
+                    {#                                <option value="{{ name }}">{{ value }}</option>#}
+                    {#                            {% endfor %}#}
+                    {#                        </input>#}
+                    {#                        {% if form.tags.errors %}#}
+                    {#                            <div class="invalid-feedback">{{ form.tags.errors }}</div>#}
+                    {#                        {% endif %}#}
+                    {#                    </div>#}
+                    <button type="submit" class="btn btn-primary">
+                        {% if update %}Update the post{% else %}Create a post{% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

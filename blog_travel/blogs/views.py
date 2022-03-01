@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 from blogs.models import Post
 #
@@ -29,31 +29,13 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     page_title = 'Post Create'
     model = Post
-<<<<<<< Updated upstream
-    # form_class = PostCreateForm
-    success_url = '/'
-    fields = ('title', 'body', )
-=======
-    # fields = ('title', 'body', 'tags')
+
     form_class = PostCreateForm
     success_url = 'blogs:index'
-    #
-    # def get_form_kwargs(self):
-    #     result =  super().get_form_kwargs()
-    #     print(f"get_form_kwargs result: {result}")
-    #     tags_line = result['data'].get("tags", '')
-    #     assert isinstance(tags_line, str)
-    #     tags = tags_line.split(',')
-    #     result["data"]["tags"] = tags
-    #     return result
 
     def get_form_class(self):
-        # print('testing tags', self.fields, self.model)
         res = super().get_form_class()
-        # print('done')
         return res
-
->>>>>>> Stashed changes
 
     def get_success_url(self):
         messages.success(
@@ -67,18 +49,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         # form.instance.tags.set([])
         return result
 
-
-<<<<<<< Updated upstream
-    def save_model(self):
-        pass
-=======
     def get_queryset(self):
         print('get_queryset')
         return super().get_queryset()
-        # return self.model.objects.filter(author=self.request.user)
-    # def save_model(self):
-    #     pass
->>>>>>> Stashed changes
 
 
 class PostUpdateView(LoginRequiredMixin, CreateView):
@@ -100,3 +73,14 @@ class PostUpdateView(LoginRequiredMixin, CreateView):
     def get_queryset(self):
         return self.model.objects.filter(author=self.request.user)
 
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Your post has been deleted successfully.')
+        return reverse_lazy("blogs:index")
+
+    def get_queryset(self):
+        return self.model.objects.filter(author=self.request.user)
