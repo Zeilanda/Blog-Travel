@@ -8,10 +8,10 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 
-from blogs.models import Post
+from blogs.models import Post, Comment
 #
 #
-from blogs.forms import PostCreateForm, PostUpdateForm
+from blogs.forms import PostCreateForm, PostUpdateForm, CommentCreateForm
 from register.models import BlogUser
 
 
@@ -43,14 +43,14 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy("blogs:index")
 
     def form_valid(self, form):
-        print('form:', form)
+        # print('form:', form)
         form.instance.author = self.request.user
         result = super().form_valid(form)
         # form.instance.tags.set([])
         return result
 
     def get_queryset(self):
-        print('get_queryset')
+        # print('get_queryset')
         return super().get_queryset()
 
 
@@ -63,7 +63,13 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         messages.success(
             self.request, 'Your post has been updated successfully.')
-        return reverse_lazy("blogs:index")
+        return reverse_lazy("blogs:post_detail", kwargs={'pk': self.kwargs['pk']})
+
+    def get_queryset(self):
+        # print('get_queryset')
+        res = super().get_queryset()
+        # print(res)
+        return res
 
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
@@ -77,3 +83,21 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 
     # def get_queryset(self):
     #     return self.model.objects.filter(author=self.request.user)
+
+
+class CommentCreateView(CreateView):
+    model = Comment
+    template_name = 'blogs/add_comment.html'
+    # fields = '__all__'
+    form_class = CommentCreateForm
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        result = super().form_valid(form)
+        # form.instance.tags.set([])
+        return result
+
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Your post has been deleted successfully.')
+        return reverse_lazy('blogs:post_detail', kwargs={'pk': self.kwargs['pk']})

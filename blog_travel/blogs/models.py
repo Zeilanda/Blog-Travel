@@ -15,6 +15,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return self.name
+
 
 class Post(models.Model):
     title = models.CharField(max_length=64)
@@ -35,14 +38,12 @@ class Comment(models.Model):
     post = models.ForeignKey(Post,
                              on_delete=models.CASCADE,
                              related_name='comments')
-    body = models.TextField()
+    name = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(BlogUser,
-                               on_delete=models.CASCADE,
-                               )
+    body = models.TextField()
+
+    def __str__(self):
+        return '%s - %s' % (self.post.title, self.name)
 
     class Meta:
         ordering = ('-created',)
-
-    def __str__(self):
-        return 'Comment by {}'.format(self.author)

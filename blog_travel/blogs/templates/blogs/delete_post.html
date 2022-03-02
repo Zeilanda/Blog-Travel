@@ -15,7 +15,8 @@
                             {% csrf_token %}
                             <strong>Вы уверены?</strong>
                             <p></p>
-                            <button class="btn btn-secondary">Удалить пост</button>
+                            <button class="btn btn-outline-dark">Удалить пост</button>
+                            <a class="btn btn-dark" href="{% url 'blogs:post_detail' post.id %}">Вернуться назад</a>
                     </div>
                 </div>
             </div>

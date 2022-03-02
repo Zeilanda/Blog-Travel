@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+    Добавить комментарий
+{% endblock %}
+
+{% block main_container %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <h2 class=" my-5">Добавить комментарий</h2>
+                <div class="form-group">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.name.label_tag }}
+                            <input type="text" class="form-control {% if form.title.errors %}is-invalid{% endif %}"
+                                   id="id_name"
+                                   name="name" value='{{ form.name.value|default:"" }}'>
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback">{{ form.nameerrors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.body.label_tag }}
+                            <textarea type="text" class="form-control {% if form.body.errors %}is-invalid{% endif %}"
+                                      id="id_body"
+                                      name="body" cols="40" rows="10">{{ form.body.value|default:"" }}</textarea>
+                            {% if form.body.errors %}
+                                <div class="invalid-feedback">{{ form.body.errors }}</div>
+                            {% endif %}
+                        </div>
+                    <p></p>
+                        <button class="btn btn-secondary">Добавить комментарий</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

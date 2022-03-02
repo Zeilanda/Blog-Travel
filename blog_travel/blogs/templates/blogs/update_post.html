@@ -6,23 +6,10 @@
 {% endblock %}
 
 {% block main_container %}
-    {#    <div class="container">#}
-    {#        <div class="row">#}
-    {#            <div class="col-8 offset-2">#}
-    {#                <h2 class=" my-5">Редактировать пост</h2>#}
-    {#                <div class="form-group">#}
-    {#                    <form method="post">#}
-    {#                        {% csrf_token %}#}
-    {#                        {{ form.as_p }}#}
-    {#                        <button class="btn btn-secondary">Update</button>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
     <div class="container">
         <div class="row">
             <div class="col-8 offset-2">
-                <h2 class=" my-5">Создать пост</h2>
+                <h2 class=" my-5">Редактировать пост</h2>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
