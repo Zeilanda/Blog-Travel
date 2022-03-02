@@ -37,9 +37,12 @@ class Comment(models.Model):
                              related_name='comments')
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(BlogUser,
+                               on_delete=models.CASCADE,
+                               )
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('-created',)
 
     def __str__(self):
-        return 'Comment on {}'.format(self.post)
+        return 'Comment by {}'.format(self.author)

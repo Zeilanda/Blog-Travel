@@ -6,12 +6,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 
 from blogs.models import Post
 #
 #
-from blogs.forms import PostCreateForm
+from blogs.forms import PostCreateForm, PostUpdateForm
 from register.models import BlogUser
 
 
@@ -54,33 +54,26 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().get_queryset()
 
 
-class PostUpdateView(LoginRequiredMixin, CreateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ('title', 'body', )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        update = True
-        context['update'] = update
-
-        return context
+    form_class = PostUpdateForm
+    template_name = 'blogs/update_post.html'
+    # fields = ['title', 'body', 'tags']
 
     def get_success_url(self):
         messages.success(
             self.request, 'Your post has been updated successfully.')
         return reverse_lazy("blogs:index")
 
-    def get_queryset(self):
-        return self.model.objects.filter(author=self.request.user)
-
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
+    template_name = 'blogs/delete_post.html'
 
     def get_success_url(self):
         messages.success(
             self.request, 'Your post has been deleted successfully.')
         return reverse_lazy("blogs:index")
 
-    def get_queryset(self):
-        return self.model.objects.filter(author=self.request.user)
+    # def get_queryset(self):
+    #     return self.model.objects.filter(author=self.request.user)

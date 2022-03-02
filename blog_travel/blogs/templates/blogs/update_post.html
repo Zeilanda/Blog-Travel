@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+    Редактировать пост
+{% endblock %}
+
+{% block main_container %}
+    {#    <div class="container">#}
+    {#        <div class="row">#}
+    {#            <div class="col-8 offset-2">#}
+    {#                <h2 class=" my-5">Редактировать пост</h2>#}
+    {#                <div class="form-group">#}
+    {#                    <form method="post">#}
+    {#                        {% csrf_token %}#}
+    {#                        {{ form.as_p }}#}
+    {#                        <button class="btn btn-secondary">Update</button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <h2 class=" my-5">Создать пост</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form.title.label_tag }}
+                        <input type="text" class="form-control {% if form.title.errors %}is-invalid{% endif %}"
+                               id="id_title"
+                               name="title" value='{{ form.title.value|default:"" }}'>
+                        {% if form.title.errors %}
+                            <div class="invalid-feedback">{{ form.title.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.body.label_tag }}
+                        <textarea type="text" class="form-control {% if form.body.errors %}is-invalid{% endif %}"
+                                  id="id_body"
+                                  name="body" cols="40" rows="10">{{ form.body.value|default:"" }}</textarea>
+                        {% if form.body.errors %}
+                            <div class="invalid-feedback">{{ form.body.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.tags.label_tag }}<br>
+
+                        <input type="text" class="form-control {% if form.tags.errors %}is-invalid{% endif %}"
+                               id="id_tags"
+                               name="tags" value='{{ form.tags.value|default:"" }}'>
+                        {% if form.tags.errors %}
+                            <div class="invalid-feedback">{{ form.tags.errors }}</div>
+                        {% endif %}
+                    </div>
+
+
+                    <p></p>
+                    <button type="submit" class="btn btn-dark">Редактировать пост</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

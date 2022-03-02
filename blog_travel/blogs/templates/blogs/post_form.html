@@ -2,29 +2,14 @@
 
 
 {% block page_title %}
-    Travel blog
+    Создать пост
 {% endblock %}
 
 {% block main_container %}
-    {#    <div class="container-md">#}
-    {#        {% if user.is_authenticated %}#}
-    {#            <div>#}
-    {#                <div class="post-create-form">#}
-    {#                    <form method="post">#}
-    {#                        {% csrf_token %}#}
-    {#                        {{ form.as_p }}#}
-    {#                        <input type="submit" value="save">#}
-    {#                    </form>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#            </div>#}
-    {#        {% else %}#}
-    {#            <a href="{% url 'register:login' %}">Войти</a>#}
-    {#        {% endif %}#}
     <div class="container">
         <div class="row">
             <div class="col-8 offset-2">
-                <h2 class=" my-5">{% if update %}Update post{% else %}Create a post{% endif %}</h2>
+                <h2 class=" my-5">Создать пост</h2>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
@@ -58,20 +43,8 @@
                             <div class="invalid-feedback">{{ form.tags.errors }}</div>
                         {% endif %}
                     </div>
-
-
-                    {#                        <input class="custom-select w-25" name="tags" id="id_tags" multiple>#}
-                    {#                            {% for name, value in form.tags.field.choices %}#}
-                    {#                                <option value="{{ name }}">{{ value }}</option>#}
-                    {#                            {% endfor %}#}
-                    {#                        </input>#}
-                    {#                        {% if form.tags.errors %}#}
-                    {#                            <div class="invalid-feedback">{{ form.tags.errors }}</div>#}
-                    {#                        {% endif %}#}
-                    {#                    </div>#}
-                    <button type="submit" class="btn btn-primary">
-                        {% if update %}Update the post{% else %}Create a post{% endif %}
-                    </button>
+                    <p></p>
+                    <button type="submit" class="btn btn-dark">Создать пост</button>
                 </form>
             </div>
         </div>
