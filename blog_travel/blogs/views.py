@@ -20,6 +20,10 @@ class HomeView(ListView):
     queryset = Post.objects.all()
     paginate_by = 5
 
+def TagView(request, ):
+    tag_posts = Post.objects.filter(tags=)
+    return render(request, 'blogs/chosen_tags.html', {})
+
 
 class PostDetailView(DetailView):
     page_title = 'Post Detail'

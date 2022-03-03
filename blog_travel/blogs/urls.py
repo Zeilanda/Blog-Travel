@@ -24,6 +24,7 @@ urlpatterns = [
     path('<int:pk>/delete/',
          blogs.PostDeleteView.as_view(), name='post_delete'),
     path('<int:pk>/comment/',
-         blogs.CommentCreateView.as_view(), name='comment_create')
+         blogs.CommentCreateView.as_view(), name='comment_create'),
+    path('tag/<repr:tag>', blogs.TagView, name='tag_view')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
