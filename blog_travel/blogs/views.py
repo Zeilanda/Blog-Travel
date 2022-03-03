@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 
-from blogs.models import Post, Comment
+from blogs.models import Post, Comment, Tag
 #
 #
 from blogs.forms import PostCreateForm, PostUpdateForm, CommentCreateForm
@@ -20,9 +20,10 @@ class HomeView(ListView):
     queryset = Post.objects.all()
     paginate_by = 5
 
-def TagView(request, ):
-    tag_posts = Post.objects.filter(tags=)
-    return render(request, 'blogs/chosen_tags.html', {})
+
+# def tag(request, slug):
+#     tags = Post.objects.filter(tags__slug=slug)
+#     return render(request, 'blogs/chosen_tags.html', {'tags': tags})
 
 
 class PostDetailView(DetailView):

@@ -24,7 +24,7 @@
             <p class="lh-base">{{ post.body }}</p>
             {##} Теги:
             {% for tag in post.tags.all %}
-                <li class="list-inline-item">{{ tag }}</li>
+                <a class="list-inline-item" href="#">{{ tag }}</a>
             {% endfor %}
             {% if post.author == request.user %}
                 <div class="list-inline-item; text-end">

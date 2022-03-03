@@ -19,12 +19,12 @@ urlpatterns = [
          blogs.PostDetailView.as_view(),
          name='post_detail'),
     path('profile/<username>/', profile, name='profile'),
-    path('e<int:pk>/edit/',
+    path('<int:pk>/edit/',
          blogs.PostUpdateView.as_view(), name='post_update'),
     path('<int:pk>/delete/',
          blogs.PostDeleteView.as_view(), name='post_delete'),
     path('<int:pk>/comment/',
          blogs.CommentCreateView.as_view(), name='comment_create'),
-    path('tag/<repr:tag>', blogs.TagView, name='tag_view')
+    # path('tag/<slug>/', blogs.tag, name='tag_view')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

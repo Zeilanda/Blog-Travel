@@ -10,6 +10,9 @@ from django.forms import ModelForm, BooleanField, ModelMultipleChoiceField, Char
 from blogs.models import Post, Tag, Comment
 from register import forms
 
+# choices = Tag.objects.all().values_list('name')
+# choice_list = [item for item in choices]
+
 
 class PostCreateForm(ModelForm):
     tags = CharField()
