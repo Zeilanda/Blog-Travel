@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# sys.modules['django-dia'] = __import__('django-dia')
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    # 'django-dia',
     'blogs',
     'register',
 ]
@@ -147,3 +150,8 @@ AUTH_USER_MODEL = 'register.BlogUser'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/register/login/'
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

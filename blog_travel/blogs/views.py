@@ -21,9 +21,11 @@ class HomeView(ListView):
     paginate_by = 5
 
 
-# def tag(request, slug):
-#     tags = Post.objects.filter(tags__slug=slug)
-#     return render(request, 'blogs/chosen_tags.html', {'tags': tags})
+def tag(request, slug):
+    print("qwerty")
+    tags = Post.objects.filter(tags__name=slug)
+    print(tags)
+    return render(request, 'blogs/chosen_tags.html', {'posts': tags, 'tag': slug})
 
 
 class PostDetailView(DetailView):
